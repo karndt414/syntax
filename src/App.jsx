@@ -10,9 +10,9 @@ import Footer from './components/Footer';
 
 function Divider() {
   return (
-    <div className="relative w-full h-px overflow-visible">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal/25 to-transparent" />
-      <div className="absolute left-1/2 -translate-x-1/2 -top-1 w-2 h-2 rounded-full bg-teal/40" />
+    <div className="relative w-full flex items-center justify-center" style={{ height: '3rem' }}>
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-teal/30 to-transparent" />
+      <div className="relative w-2 h-2 rounded-full bg-teal/50 ring-4 ring-teal/10" />
     </div>
   );
 }
