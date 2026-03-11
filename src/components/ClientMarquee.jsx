@@ -37,7 +37,7 @@ export default function ClientMarquee() {
     <section ref={sectionRef} className="relative py-24 bg-carbon overflow-hidden">
       <div className="glow-line w-full mb-16" />
 
-      <div className="reveal max-w-7xl mx-auto px-6 lg:px-12 mb-12 text-center">
+      <div className="reveal max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 mb-12 text-center">
         <span className="section-tag">Trusted Partners</span>
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-bone mt-6">
           Trusted By Industry Leaders

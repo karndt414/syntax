@@ -30,7 +30,7 @@ export default function Hero() {
       {/* Dot grid */}
       <div className="absolute inset-0 dot-grid opacity-50" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full py-20">
+      <div className="relative z-10 max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 w-full py-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           {/* Left column — text */}
           <div className="text-center lg:text-left">

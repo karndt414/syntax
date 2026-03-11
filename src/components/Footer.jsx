@@ -9,7 +9,7 @@ export default function Footer() {
       {/* Top glow line */}
       <div className="glow-line w-full" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+      <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 py-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Brand */}
           <div className="lg:col-span-1">

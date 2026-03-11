@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Navbar />
       <Hero />
       <ClientMarquee />
