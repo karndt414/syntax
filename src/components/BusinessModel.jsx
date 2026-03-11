@@ -62,7 +62,7 @@ export default function BusinessModel() {
   };
 
   return (
-    <section id="model" ref={sectionRef} className="relative py-32 overflow-hidden bg-obsidian dot-grid">
+    <section id="model" ref={sectionRef} className="relative py-44 overflow-hidden bg-obsidian dot-grid">
       {/* Diagonal accent */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal/20 to-transparent" />
 

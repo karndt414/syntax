@@ -43,7 +43,7 @@ export default function Team() {
   const sectionRef = useReveal();
 
   return (
-    <section id="team" ref={sectionRef} className="mesh-bg relative py-32 overflow-hidden">
+    <section id="team" ref={sectionRef} className="mesh-bg relative py-44 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal/20 to-transparent" />
 
       <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16">

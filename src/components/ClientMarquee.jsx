@@ -34,7 +34,7 @@ export default function ClientMarquee() {
   const doubled = [...CLIENTS, ...CLIENTS];
 
   return (
-    <section ref={sectionRef} className="relative py-24 bg-carbon overflow-hidden">
+    <section ref={sectionRef} className="relative py-36 bg-carbon overflow-hidden">
       <div className="glow-line w-full mb-16" />
 
       <div className="reveal max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 mb-12 text-center">

@@ -31,7 +31,7 @@ export default function HowWeWork() {
   const sectionRef = useReveal();
 
   return (
-    <section id="process" ref={sectionRef} className="mesh-bg-alt relative py-32 overflow-hidden stripe-pattern">
+    <section id="process" ref={sectionRef} className="mesh-bg-alt relative py-44 overflow-hidden stripe-pattern">
       <div className="orb w-[500px] h-[500px] bg-teal/4 top-[10%] right-[-10%]" style={{ animationDelay: '2s' }} />
 
       <div className="max-w-[100rem] mx-auto px-6 lg:px-12 2xl:px-16">

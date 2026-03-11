@@ -4,7 +4,7 @@ export default function Consultation() {
   const sectionRef = useReveal();
 
   return (
-    <section id="consultation" ref={sectionRef} className="mesh-bg-alt relative py-32 overflow-hidden">
+    <section id="consultation" ref={sectionRef} className="mesh-bg-alt relative py-44 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal/20 to-transparent" />
       <div className="orb w-[400px] h-[400px] bg-teal/5 top-[20%] left-[-5%]" style={{ animationDelay: '3s' }} />
       <div className="orb w-[300px] h-[300px] bg-blue/4 bottom-[10%] right-[-3%]" style={{ animationDelay: '7s' }} />
