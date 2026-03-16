@@ -21,20 +21,22 @@ export default function App() {
   return (
     <div className="relative w-full">
       <Navbar />
-      <Hero />
-      <Divider />
-      <ClientMarquee />
-      <Divider />
-      <Services />
-      <Divider />
-      <HowWeWork />
-      <Divider />
-      <BusinessModel />
-      <Divider />
-      <Team />
-      <Divider />
-      <Consultation />
-      <Footer />
+      <main>
+        <Hero />
+        <Divider />
+        <ClientMarquee />
+        <Divider />
+        <Services />
+        <Divider />
+        <HowWeWork />
+        <Divider />
+        <BusinessModel />
+        <Divider />
+        <Team />
+        <Divider />
+        <Consultation />
+        <Footer />
+      </main>
     </div>
   );
 }

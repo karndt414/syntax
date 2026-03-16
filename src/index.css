@@ -33,9 +33,12 @@ section, footer, nav {
   width: 100%;
   display: block;
 }
+section {
+  scroll-margin-top: 5rem;
+}
 .section-container {
   width: 100%;
-  max-width: 100rem;
+  max-width: 90rem;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
@@ -50,6 +53,7 @@ section, footer, nav {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
   scrollbar-width: thin;
   scrollbar-color: var(--color-steel) var(--color-void);
 }
@@ -348,4 +352,28 @@ body::before {
   height: calc(100% + 2rem);
   background: linear-gradient(to bottom, var(--color-teal), transparent);
   opacity: 0.3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
 }

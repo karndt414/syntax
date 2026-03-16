@@ -28,13 +28,13 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+      className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-500 ${
         scrolled
           ? 'bg-[rgba(5,5,5,0.85)] backdrop-blur-xl border-b border-[rgba(255,255,255,0.04)]'
-          : 'bg-transparent'
+          : 'bg-[rgba(5,5,5,0.72)] backdrop-blur-lg border-b border-[rgba(255,255,255,0.03)]'
       }`}
     >
-      <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 h-20 flex items-center justify-between">
+      <div className="section-container h-20 flex items-center justify-between">
         <a href="#hero" onClick={(e) => handleClick(e, '#hero')} className="flex items-center gap-3 group">
           <img src="/logo.png" alt="Syntax" className="h-9 w-auto transition-transform duration-300 group-hover:scale-105" />
           <span className="font-display text-xl font-bold tracking-tight text-bone hidden sm:block">SYNTAX</span>
@@ -55,6 +55,8 @@ export default function Navbar() {
           className="lg:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-[110]"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
         >
           <span className={`block w-6 h-0.5 bg-bone transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
           <span className={`block w-6 h-0.5 bg-bone transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
@@ -62,7 +64,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      <div className={`mobile-nav fixed inset-0 bg-void/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 lg:hidden ${mobileOpen ? 'open' : ''}`}>
+      <div id="mobile-navigation" className={`mobile-nav fixed inset-0 bg-void/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 lg:hidden ${mobileOpen ? 'open' : ''}`}>
         {NAV_ITEMS.map((item, i) => (
           <a
             key={item.href}

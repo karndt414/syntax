@@ -9,7 +9,7 @@ export default function Footer() {
       {/* Top glow line */}
       <div className="glow-line w-full" />
 
-      <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 py-20">
+      <div className="section-container py-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Brand */}
           <div className="lg:col-span-1">
@@ -68,8 +68,16 @@ export default function Footer() {
               Contact
             </h4>
             <ul className="space-y-3">
-              <li className="font-body text-sm text-smoke">hello@syntax.io</li>
-              <li className="font-body text-sm text-smoke">+1 (555) 123-4567</li>
+              <li>
+                <a href="mailto:hello@syntax.io" className="font-body text-sm text-smoke hover:text-teal transition-colors duration-300">
+                  hello@syntax.io
+                </a>
+              </li>
+              <li>
+                <a href="tel:+15551234567" className="font-body text-sm text-smoke hover:text-teal transition-colors duration-300">
+                  +1 (555) 123-4567
+                </a>
+              </li>
               <li className="font-body text-sm text-smoke">San Francisco, CA</li>
             </ul>
             <a
@@ -89,13 +97,9 @@ export default function Footer() {
           </span>
           <div className="flex gap-6">
             {['Privacy', 'Terms', 'Cookies'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="font-body text-xs text-ash hover:text-teal transition-colors duration-300"
-              >
+              <span key={item} className="font-body text-xs text-ash">
                 {item}
-              </a>
+              </span>
             ))}
           </div>
         </div>

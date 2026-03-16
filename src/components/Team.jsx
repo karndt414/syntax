@@ -46,7 +46,7 @@ export default function Team() {
     <section id="team" ref={sectionRef} className="mesh-bg relative py-44 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal/20 to-transparent" />
 
-      <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16">
+      <div className="section-container">
         <div className="reveal text-center mb-20">
           <span className="section-tag">The Team</span>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-bone mt-6 mb-6">
@@ -65,7 +65,7 @@ export default function Team() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {TEAM_MEMBERS.map((member, i) => (
             <div
-              key={i}
+              key={member.name}
               className={`reveal reveal-delay-${Math.min(i + 1, 6)} team-card group`}
             >
               <div className="relative glass-card rounded-sm overflow-hidden">

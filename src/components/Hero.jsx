@@ -14,7 +14,7 @@ export default function Hero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="mesh-bg-hero relative min-h-screen flex items-center overflow-hidden pt-20"
+      className="mesh-bg-hero relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden"
     >
       {/* Ambient orbs */}
       <div className="orb w-[600px] h-[600px] bg-teal/5 top-[-10%] left-[-5%]" />
@@ -30,10 +30,10 @@ export default function Hero() {
       {/* Dot grid */}
       <div className="absolute inset-0 dot-grid opacity-50" />
 
-      <div className="relative z-10 max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 w-full py-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      <div className="section-container relative z-10 w-full py-20 lg:py-24">
+        <div className="grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-12 lg:gap-10 items-center">
           {/* Left column — text */}
-          <div className="text-center lg:text-left">
+          <div className="max-w-[38rem] mx-auto lg:mx-0 text-center lg:text-left">
             <div className="reveal">
               <span className="section-tag mb-8 inline-block">
                 <span className="glow-dot mr-2 inline-block w-2 h-2" />
@@ -44,9 +44,9 @@ export default function Hero() {
             <h1 className="reveal reveal-delay-1 font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[0.95] tracking-tight mb-6">
               <span className="block text-bone">We Help You</span>
               <span className="block relative h-[1.15em] overflow-hidden word-cycle mt-2">
-                {ROTATING_WORDS.map((word, i) => (
+                {ROTATING_WORDS.map((word) => (
                   <span
-                    key={i}
+                    key={word}
                     className="bg-gradient-to-r from-teal to-blue bg-clip-text text-transparent"
                   >
                     {word}
@@ -55,7 +55,7 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p className="reveal reveal-delay-2 font-body text-lg sm:text-xl text-smoke max-w-lg leading-relaxed mb-10">
+            <p className="reveal reveal-delay-2 font-body text-lg sm:text-xl text-smoke max-w-lg mx-auto lg:mx-0 leading-relaxed mb-10">
               Syntax delivers data-driven strategies that accelerate your
               business growth with predictable, measurable results —
               turning complex data into your competitive edge.
@@ -92,13 +92,13 @@ export default function Hero() {
             </div>
 
             {/* Stats row */}
-            <div className="reveal reveal-delay-4 flex gap-10 mt-14 border-t border-steel/50 pt-8 justify-center lg:justify-start">
+            <div className="reveal reveal-delay-4 flex flex-wrap gap-x-10 gap-y-6 mt-14 border-t border-steel/50 pt-8 justify-center lg:justify-start">
               {[
                 { num: '200+', label: 'Clients Served' },
                 { num: '97%', label: 'Retention Rate' },
                 { num: '3.5×', label: 'Avg. ROI' },
-              ].map((stat, i) => (
-                <div key={i}>
+              ].map((stat) => (
+                <div key={stat.label}>
                   <span className="stat-glow font-display text-3xl sm:text-4xl font-extrabold text-teal">
                     {stat.num}
                   </span>
@@ -111,7 +111,7 @@ export default function Hero() {
           </div>
 
           {/* Right column — hero image */}
-          <div className="reveal-scale reveal-delay-2 relative">
+          <div className="reveal-scale reveal-delay-2 relative w-full max-w-[44rem] mx-auto lg:ml-auto">
             <div className="relative">
               {/* Decorative frame */}
               <div className="absolute -top-4 -right-4 w-full h-full border border-teal/20 rounded-sm" />

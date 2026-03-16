@@ -69,7 +69,7 @@ export default function BusinessModel() {
       {/* Ambient orb */}
       <div className="orb w-[700px] h-[700px] bg-blue/3 bottom-[-20%] left-[-15%]" style={{ animationDelay: '6s' }} />
 
-      <div className="max-w-[100rem] mx-auto px-6 lg:px-12 2xl:px-16">
+      <div className="section-container">
         {/* Header */}
         <div className="reveal text-center mb-6">
           <span className="section-tag">Why Syntax</span>
@@ -91,7 +91,7 @@ export default function BusinessModel() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {VALUE_PROPS.map((prop, i) => (
             <div
-              key={i}
+              key={prop.title}
               className={`reveal reveal-delay-${i + 1} group relative glass-card rounded-sm p-8 hover:border-teal/20 transition-all duration-500 ${
                 i === 0 ? 'lg:col-span-2' : ''
               } ${i === 3 ? 'lg:col-span-2' : ''}`}

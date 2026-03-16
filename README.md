@@ -1,16 +1,18 @@
-# React + Vite
+# Syntax Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Contact Form Email Delivery
 
-Currently, two official plugins are available:
+The consultation form now posts to a serverless endpoint at `/api/contact`, which relays the submission through Resend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Create an `.env` file from `.env.example` and set these values:
 
-## React Compiler
+- `RESEND_API_KEY`: your Resend API key.
+- `CONTACT_TO_EMAIL`: the inbox that should receive consultation requests.
+- `CONTACT_FROM_EMAIL`: the sender address used by Resend. For testing, `onboarding@resend.dev` works only within Resend's limits; for production, use a verified domain.
+- `VITE_CONTACT_API_URL`: optional override if the frontend needs to call a different deployed API URL.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Notes
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- The frontend sends requests to `/api/contact` by default.
+- The serverless function is designed for Vercel-style API routes inside this app directory.
+- If you run only `vite` locally, the API route will not exist. Use your deployment environment, or point `VITE_CONTACT_API_URL` at a running backend endpoint.

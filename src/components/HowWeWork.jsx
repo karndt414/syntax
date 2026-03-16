@@ -34,7 +34,7 @@ export default function HowWeWork() {
     <section id="process" ref={sectionRef} className="mesh-bg-alt relative py-44 overflow-hidden stripe-pattern">
       <div className="orb w-[500px] h-[500px] bg-teal/4 top-[10%] right-[-10%]" style={{ animationDelay: '2s' }} />
 
-      <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16">
+      <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <div className="lg:sticky lg:top-32">
             <div className="reveal">
@@ -57,7 +57,7 @@ export default function HowWeWork() {
 
           <div className="space-y-8 lg:pt-8">
             {STEPS.map((step, i) => (
-              <div key={i} className={`reveal reveal-delay-${i + 1} group relative`}>
+              <div key={step.num} className={`reveal reveal-delay-${i + 1} group relative`}>
                 {i < STEPS.length - 1 && <div className="step-connector" />}
                 <div className="relative flex gap-6">
                   <div className="flex-shrink-0 relative">
