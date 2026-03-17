@@ -7,6 +7,8 @@ import BusinessModel from './components/BusinessModel';
 import Team from './components/Team';
 import Consultation from './components/Consultation';
 import Footer from './components/Footer';
+import AdminView from './components/AdminView';
+import { useSiteContent } from './hooks/useSiteContent';
 
 function Divider() {
   return (
@@ -18,24 +20,40 @@ function Divider() {
 }
 
 export default function App() {
+  const { content, loading, error, refresh, saveContent, hasSupabaseEnv } = useSiteContent();
+  const isAdminRoute = window.location.pathname === '/admin';
+
+  if (isAdminRoute) {
+    return (
+      <AdminView
+        content={content}
+        saveContent={saveContent}
+        refresh={refresh}
+        loading={loading}
+        loadError={error}
+        hasEnv={hasSupabaseEnv}
+      />
+    );
+  }
+
   return (
     <div className="relative w-full">
-      <Navbar />
+      <Navbar data={content.navbar} />
       <main>
-        <Hero />
+        <Hero data={content.hero} />
         <Divider />
-        <ClientMarquee />
+        <ClientMarquee data={content.clients} />
         <Divider />
-        <Services />
+        <Services data={content.services} />
         <Divider />
-        <HowWeWork />
+        <HowWeWork data={content.process} />
         <Divider />
-        <BusinessModel />
+        <BusinessModel data={content.model} />
         <Divider />
-        <Team />
+        <Team data={content.team} />
         <Divider />
-        <Consultation />
-        <Footer />
+        <Consultation data={content.consultation} />
+        <Footer data={content.footer} />
       </main>
     </div>
   );

@@ -1,9 +1,9 @@
 import { useReveal } from '../hooks/useReveal';
 
-const ROTATING_WORDS = ['Optimize.', 'Analyze.', 'Scale.'];
-
-export default function Hero() {
+export default function Hero({ data }) {
   const sectionRef = useReveal();
+  const rotatingWords = data?.rotatingWords || [];
+  const stats = data?.stats || [];
 
   const handleScroll = (e, href) => {
     e.preventDefault();
@@ -37,14 +37,14 @@ export default function Hero() {
             <div className="reveal">
               <span className="section-tag mb-8 inline-block">
                 <span className="glow-dot mr-2 inline-block w-2 h-2" />
-                Data-Driven Growth
+                {data?.tag || 'Data-Driven Growth'}
               </span>
             </div>
 
             <h1 className="reveal reveal-delay-1 font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[0.95] tracking-tight mb-6">
-              <span className="block text-bone">We Help You</span>
+              <span className="block text-bone">{data?.titleLead || 'We Help You'}</span>
               <span className="block relative h-[1.15em] overflow-hidden word-cycle mt-2">
-                {ROTATING_WORDS.map((word) => (
+                {rotatingWords.map((word) => (
                   <span
                     key={word}
                     className="bg-gradient-to-r from-teal to-blue bg-clip-text text-transparent"
@@ -56,9 +56,7 @@ export default function Hero() {
             </h1>
 
             <p className="reveal reveal-delay-2 font-body text-lg sm:text-xl text-smoke max-w-lg mx-auto lg:mx-0 leading-relaxed mb-10">
-              Syntax delivers data-driven strategies that accelerate your
-              business growth with predictable, measurable results —
-              turning complex data into your competitive edge.
+              {data?.description}
             </p>
 
             <div className="reveal reveal-delay-3 flex flex-wrap gap-4 justify-center lg:justify-start">
@@ -67,7 +65,7 @@ export default function Hero() {
                 onClick={(e) => handleScroll(e, '#consultation')}
                 className="btn-primary"
               >
-                Schedule a Consultation
+                {data?.primaryCtaLabel || 'Schedule a Consultation'}
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -87,17 +85,13 @@ export default function Hero() {
                 onClick={(e) => handleScroll(e, '#process')}
                 className="btn-outline"
               >
-                How We Work
+                {data?.secondaryCtaLabel || 'How We Work'}
               </a>
             </div>
 
             {/* Stats row */}
             <div className="reveal reveal-delay-4 flex flex-wrap gap-x-10 gap-y-6 mt-14 border-t border-steel/50 pt-8 justify-center lg:justify-start">
-              {[
-                { num: '200+', label: 'Clients Served' },
-                { num: '97%', label: 'Retention Rate' },
-                { num: '3.5×', label: 'Avg. ROI' },
-              ].map((stat) => (
+              {stats.map((stat) => (
                 <div key={stat.label}>
                   <span className="stat-glow font-display text-3xl sm:text-4xl font-extrabold text-teal">
                     {stat.num}
@@ -118,8 +112,8 @@ export default function Hero() {
               <div className="absolute -bottom-4 -left-4 w-full h-full border border-blue/10 rounded-sm" />
               <div className="relative overflow-hidden rounded-sm">
                 <img
-                  src="/optimization.png"
-                  alt="Syntax data optimization"
+                  src={data?.imageUrl || '/optimization.png'}
+                  alt={data?.imageAlt || 'Syntax data optimization'}
                   className="w-full h-auto object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
@@ -127,10 +121,10 @@ export default function Hero() {
               {/* Floating accent badge */}
               <div className="absolute -bottom-6 -left-6 glass-card px-5 py-4 rounded-sm">
                 <span className="font-heading text-xs text-teal uppercase tracking-widest block">
-                  Performance
+                  {data?.badgeLabel || 'Performance'}
                 </span>
                 <span className="font-display text-2xl font-bold text-bone">
-                  +340%
+                  {data?.badgeValue || '+340%'}
                 </span>
               </div>
             </div>

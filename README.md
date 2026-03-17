@@ -1,52 +1,65 @@
-# Syntax Landing Page
+# Syntax Site + Supabase CMS
 
-## Contact Form Email Delivery & Submission Tracking
+The public site now loads all displayed content from Supabase and includes an owner-only admin view at `/admin`.
 
-The consultation form posts to a serverless endpoint at `/api/contact`, which sends emails via Gmail and stores submissions in Supabase.
+## What is editable
 
-### Local Setup
+- Navbar labels and CTA
+- Hero text, rotating words, stats, image URL, badge text
+- Client marquee list and colors
+- Services cards (text, icon path, image URL)
+- Process section text, steps, and image URL
+- Business model cards and CTA text
+- Team members (text and optional image URL)
+- Consultation section text, benefits, image URL, button labels
+- Footer text, links, services list, and contact info
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+## Environment variables
 
-2. Create a `.env` file from `.env.example` and set these values:
-   - `GMAIL_USER`: your Gmail address
-   - `GMAIL_PASSWORD`: a Gmail app password (not your regular password)
-   - `SUPABASE_URL`: your Supabase project URL
-   - `SUPABASE_KEY`: your Supabase anon key
+Create a `.env` file and set:
 
-### Gmail App Password Setup
-
-1. Enable 2-factor authentication on your Google account
-2. Go to [Google Account Security](https://myaccount.google.com/security)
-3. Find "App passwords" → select Mail and Windows Computer
-4. Copy the generated password and use it as `GMAIL_PASSWORD`
-
-### Supabase Setup
-
-1. Create a table `contact_submissions` with columns:
-   - `id` (uuid, primary key)
-   - `first_name` (text)
-   - `last_name` (text)
-   - `email` (text)
-   - `company` (text)
-   - `service` (text)
-   - `message` (text)
-   - `created_at` (timestamp)
-
-### Vercel Deployment
-
-Set these environment variables in your Vercel project settings:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+- `VITE_OWNER_EMAIL`
 - `GMAIL_USER`
 - `GMAIL_PASSWORD`
 - `SUPABASE_URL`
 - `SUPABASE_KEY`
 
-### Notes
+Notes:
 
-- The frontend sends requests to `/api/contact` by default
-- The serverless API routes run on Vercel
-- If you run only `vite` locally without Vercel functions, the contact form won't work. Use `vercel dev` for local testing with functions
-- Form submissions are logged to Supabase and emails are sent to your Gmail address
+- The `VITE_` keys are used by the frontend CMS/admin.
+- The non-`VITE_` keys are used by the `/api/contact` backend handler.
+
+## Supabase setup
+
+1. Open Supabase SQL editor.
+2. Run the SQL script in `supabase/schema.sql`.
+3. Replace `owner@example.com` in policies with your real owner email.
+4. Confirm there is a public storage bucket named `site-assets`.
+
+## Admin access
+
+1. Visit `/admin`.
+2. Sign in with magic link using `VITE_OWNER_EMAIL`.
+3. Edit section JSON blocks.
+4. Save to update the live site content.
+
+Image upload in admin:
+
+- Uploads to Supabase Storage bucket `site-assets`.
+- Set a target path such as `hero.imageUrl` or `services.items.0.image`.
+- Upload writes the public URL into the selected content field.
+
+## Local development
+
+- Install dependencies: `npm install`
+- Start frontend: `npm run dev`
+- For local API routes (`/api/contact`), run `vercel dev` or run an API on `http://localhost:3000`.
+- Vite is configured to proxy `/api` requests to `http://localhost:3000` in dev.
+
+## Contact form notes
+
+- Frontend posts to `/api/contact`.
+- API sends email via Gmail and records submissions in Supabase.
+- If `/api/contact` returns 404 in local dev, start `vercel dev`.

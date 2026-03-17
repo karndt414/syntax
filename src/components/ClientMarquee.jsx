@@ -1,16 +1,5 @@
 import { useReveal } from '../hooks/useReveal';
 
-const CLIENTS = [
-  { name: 'Client Alpha', color: '#00E5CC' },
-  { name: 'Client Beta', color: '#0094FF' },
-  { name: 'Client Gamma', color: '#00E5CC' },
-  { name: 'Client Delta', color: '#0094FF' },
-  { name: 'Client Epsilon', color: '#00E5CC' },
-  { name: 'Client Zeta', color: '#0094FF' },
-  { name: 'Client Eta', color: '#00E5CC' },
-  { name: 'Client Theta', color: '#0094FF' },
-];
-
 function ClientLogo({ name, color }) {
   return (
     <div className="flex-shrink-0 mx-8 flex items-center justify-center w-48 h-20 glass-card rounded-sm px-6 group hover:border-teal/30 transition-all duration-300">
@@ -29,18 +18,19 @@ function ClientLogo({ name, color }) {
   );
 }
 
-export default function ClientMarquee() {
+export default function ClientMarquee({ data }) {
   const sectionRef = useReveal();
-  const doubled = [...CLIENTS, ...CLIENTS];
+  const clients = data?.items || [];
+  const doubled = [...clients, ...clients];
 
   return (
     <section ref={sectionRef} className="relative py-36 bg-carbon overflow-hidden">
       <div className="glow-line w-full mb-16" />
 
       <div className="reveal max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 mb-12 text-center">
-        <span className="section-tag">Trusted Partners</span>
+        <span className="section-tag">{data?.tag || 'Trusted Partners'}</span>
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-bone mt-6">
-          Trusted By Industry Leaders
+          {data?.title || 'Trusted By Industry Leaders'}
         </h2>
       </div>
 
@@ -50,7 +40,7 @@ export default function ClientMarquee() {
 
         <div className="marquee-track">
           {doubled.map((client, i) => (
-            <ClientLogo key={`${client.name}-${i < CLIENTS.length ? 'a' : 'b'}`} {...client} />
+            <ClientLogo key={`${client.name}-${i < clients.length ? 'a' : 'b'}`} {...client} />
           ))}
         </div>
       </div>

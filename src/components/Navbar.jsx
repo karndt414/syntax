@@ -1,17 +1,9 @@
 import { useState, useEffect } from 'react';
 
-const NAV_ITEMS = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Services', href: '#services' },
-  { label: 'How We Work', href: '#process' },
-  { label: 'Business Model', href: '#model' },
-  { label: 'Team', href: '#team' },
-  { label: 'Contact', href: '#contact' },
-];
-
-export default function Navbar() {
+export default function Navbar({ data }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navItems = data?.navItems || [];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -36,18 +28,18 @@ export default function Navbar() {
     >
       <div className="section-container h-20 flex items-center justify-between">
         <a href="#hero" onClick={(e) => handleClick(e, '#hero')} className="flex items-center gap-3 group">
-          <img src="/logo.png" alt="Syntax" className="h-9 w-auto transition-transform duration-300 group-hover:scale-105" />
-          <span className="font-display text-xl font-bold tracking-tight text-bone hidden sm:block">SYNTAX</span>
+          <img src={data?.logoUrl || '/logo.png'} alt="Syntax" className="h-9 w-auto transition-transform duration-300 group-hover:scale-105" />
+          <span className="font-display text-xl font-bold tracking-tight text-bone hidden sm:block">{data?.brand || 'SYNTAX'}</span>
         </a>
 
         <div className="hidden lg:flex items-center gap-8">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <a key={item.href} href={item.href} onClick={(e) => handleClick(e, item.href)} className="nav-link">
               {item.label}
             </a>
           ))}
           <a href="#consultation" onClick={(e) => handleClick(e, '#consultation')} className="btn-primary ml-4 text-xs py-3 px-6">
-            Book a Call
+            {data?.ctaLabel || 'Book a Call'}
           </a>
         </div>
 
@@ -65,7 +57,7 @@ export default function Navbar() {
       </div>
 
       <div id="mobile-navigation" className={`mobile-nav fixed inset-0 bg-void/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 lg:hidden ${mobileOpen ? 'open' : ''}`}>
-        {NAV_ITEMS.map((item, i) => (
+        {navItems.map((item, i) => (
           <a
             key={item.href}
             href={item.href}
@@ -77,7 +69,7 @@ export default function Navbar() {
           </a>
         ))}
         <a href="#consultation" onClick={(e) => handleClick(e, '#consultation')} className="btn-primary mt-4">
-          Book a Call
+          {data?.ctaLabel || 'Book a Call'}
         </a>
       </div>
     </nav>

@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 
-export default function Consultation() {
+const BENEFIT_ICONS = {
+  TIME: '\u23F1',
+  MAP: '\uD83D\uDDFA',
+  CHECK: '\u2713',
+};
+
+export default function Consultation({ data }) {
   const sectionRef = useReveal();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,28 +72,24 @@ export default function Consultation() {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div>
             <div className="reveal">
-              <span className="section-tag">Get Started</span>
+              <span className="section-tag">{data?.tag || 'Get Started'}</span>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-bone mt-6 mb-6 leading-[1.05]">
-                Schedule Your
+                {data?.title || 'Schedule Your'}
                 <span className="block bg-gradient-to-r from-teal to-blue bg-clip-text text-transparent">
-                  Free Consultation
+                  {data?.titleAccent || 'Free Consultation'}
                 </span>
               </h2>
             </div>
 
             <p className="reveal reveal-delay-1 font-body text-lg text-smoke max-w-md leading-relaxed mb-10">
-              Take the first step toward data-driven growth. Our team will analyze your current position and present a custom strategy — no strings attached.
+              {data?.description}
             </p>
 
             <div className="reveal reveal-delay-2 space-y-6 mb-10">
-              {[
-                { text: '30-minute strategy session', icon: '\u23F1' },
-                { text: 'Custom growth roadmap', icon: '\uD83D\uDDFA' },
-                { text: 'No commitment required', icon: '\u2713' },
-              ].map((item) => (
+              {(data?.benefits || []).map((item) => (
                 <div key={item.text} className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-lg flex-shrink-0">
-                    {item.icon}
+                    {BENEFIT_ICONS[item.icon] || item.icon}
                   </div>
                   <span className="font-heading text-sm text-bone">{item.text}</span>
                 </div>
@@ -95,7 +97,7 @@ export default function Consultation() {
             </div>
 
             <div className="reveal reveal-delay-3">
-              <img src="/what_if.png" alt="What if analysis" className="rounded-sm border border-steel/30 shadow-2xl shadow-teal/5 max-w-sm" />
+              <img src={data?.imageUrl || '/what_if.png'} alt={data?.imageAlt || 'What if analysis'} className="rounded-sm border border-steel/30 shadow-2xl shadow-teal/5 max-w-sm" />
             </div>
           </div>
 
@@ -110,8 +112,8 @@ export default function Consultation() {
                 <div className="absolute bottom-0 right-0 w-12 h-[1px] bg-gradient-to-l from-teal/50 to-transparent" />
               </div>
 
-              <h3 className="font-display text-2xl font-bold text-bone mb-2">Let's Talk Growth</h3>
-              <p className="font-body text-sm text-ash mb-8">Fill out the form below and we will be in touch within 24 hours.</p>
+              <h3 className="font-display text-2xl font-bold text-bone mb-2">{data?.formTitle || "Let's Talk Growth"}</h3>
+              <p className="font-body text-sm text-ash mb-8">{data?.formSubtitle || 'Fill out the form below and we will be in touch within 24 hours.'}</p>
 
               <form className="space-y-5" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -160,12 +162,12 @@ export default function Consultation() {
 
                 {isSubmitted && (
                   <p className="rounded-sm border border-teal/20 bg-teal/5 px-4 py-3 font-body text-sm text-teal" aria-live="polite">
-                    Thanks. Your request was sent successfully, and the team will follow up shortly.
+                    {data?.successMessage || 'Thanks. Your request was sent successfully, and the team will follow up shortly.'}
                   </p>
                 )}
 
                 <button type="submit" disabled={isSubmitting} className="btn-primary w-full justify-center mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
-                  {isSubmitting ? 'Sending...' : 'Schedule Consultation'}
+                  {isSubmitting ? 'Sending...' : (data?.buttonLabel || 'Schedule Consultation')}
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
