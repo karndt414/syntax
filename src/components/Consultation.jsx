@@ -3,48 +3,12 @@ import { useReveal } from '../hooks/useReveal';
 
 export default function Consultation() {
   const sectionRef = useReveal();
-  const [submitState, setSubmitState] = useState('idle');
-  const [submitMessage, setSubmitMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const payload = {
-      firstName: formData.get('firstName')?.toString().trim() ?? '',
-      lastName: formData.get('lastName')?.toString().trim() ?? '',
-      email: formData.get('email')?.toString().trim() ?? '',
-      company: formData.get('company')?.toString().trim() ?? '',
-      service: formData.get('service')?.toString().trim() ?? '',
-      message: formData.get('message')?.toString().trim() ?? '',
-    };
-
-    setSubmitState('submitting');
-    setSubmitMessage('');
-
-    try {
-      const response = await fetch(import.meta.env.VITE_CONTACT_API_URL || '/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Unable to send your request right now.');
-      }
-
-      setSubmitState('success');
-      setSubmitMessage('Thanks. Your consultation request was sent successfully.');
-      form.reset();
-    } catch (error) {
-      setSubmitState('error');
-      setSubmitMessage(error.message || 'Unable to send your request right now.');
-    }
+    setIsSubmitted(true);
+    e.currentTarget.reset();
   };
 
   return (
@@ -53,7 +17,7 @@ export default function Consultation() {
       <div className="orb w-[400px] h-[400px] bg-teal/5 top-[20%] left-[-5%]" style={{ animationDelay: '3s' }} />
       <div className="orb w-[300px] h-[300px] bg-blue/4 bottom-[10%] right-[-3%]" style={{ animationDelay: '7s' }} />
 
-      <div className="section-container">
+      <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div>
             <div className="reveal">
@@ -108,27 +72,27 @@ export default function Consultation() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="first-name" className="block font-heading text-xs text-ash uppercase tracking-widest mb-2">First Name</label>
-                    <input id="first-name" name="firstName" type="text" className="form-input rounded-sm" placeholder="John" autoComplete="given-name" required />
+                    <input id="first-name" type="text" className="form-input rounded-sm" placeholder="John" autoComplete="given-name" required />
                   </div>
                   <div>
                     <label htmlFor="last-name" className="block font-heading text-xs text-ash uppercase tracking-widest mb-2">Last Name</label>
-                    <input id="last-name" name="lastName" type="text" className="form-input rounded-sm" placeholder="Doe" autoComplete="family-name" required />
+                    <input id="last-name" type="text" className="form-input rounded-sm" placeholder="Doe" autoComplete="family-name" required />
                   </div>
                 </div>
 
                 <div>
                   <label htmlFor="work-email" className="block font-heading text-xs text-ash uppercase tracking-widest mb-2">Work Email</label>
-                  <input id="work-email" name="email" type="email" className="form-input rounded-sm" placeholder="john@company.com" autoComplete="email" required />
+                  <input id="work-email" type="email" className="form-input rounded-sm" placeholder="john@company.com" autoComplete="email" required />
                 </div>
 
                 <div>
                   <label htmlFor="company" className="block font-heading text-xs text-ash uppercase tracking-widest mb-2">Company</label>
-                  <input id="company" name="company" type="text" className="form-input rounded-sm" placeholder="Acme Inc." autoComplete="organization" />
+                  <input id="company" type="text" className="form-input rounded-sm" placeholder="Acme Inc." autoComplete="organization" />
                 </div>
 
                 <div>
                   <label htmlFor="service-interest" className="block font-heading text-xs text-ash uppercase tracking-widest mb-2">What are you looking for?</label>
-                  <select id="service-interest" name="service" className="form-input rounded-sm appearance-none cursor-pointer" defaultValue="">
+                  <select id="service-interest" className="form-input rounded-sm appearance-none cursor-pointer" defaultValue="">
                     <option value="">Select a service...</option>
                     <option value="analytics">Data Analytics</option>
                     <option value="strategy">Growth Strategy</option>
@@ -140,26 +104,17 @@ export default function Consultation() {
 
                 <div>
                   <label htmlFor="message" className="block font-heading text-xs text-ash uppercase tracking-widest mb-2">Message</label>
-                  <textarea id="message" name="message" className="form-input rounded-sm resize-none" rows={4} placeholder="Tell us about your growth goals..." />
+                  <textarea id="message" className="form-input rounded-sm resize-none" rows={4} placeholder="Tell us about your growth goals..." />
                 </div>
 
-                {submitState !== 'idle' && submitMessage && (
-                  <p
-                    className={`rounded-sm px-4 py-3 font-body text-sm ${
-                      submitState === 'success'
-                        ? 'border border-teal/20 bg-teal/5 text-teal'
-                        : submitState === 'error'
-                          ? 'border border-red-500/20 bg-red-500/10 text-red-300'
-                          : 'border border-steel/40 bg-graphite/40 text-smoke'
-                    }`}
-                    aria-live="polite"
-                  >
-                    {submitMessage}
+                {isSubmitted && (
+                  <p className="rounded-sm border border-teal/20 bg-teal/5 px-4 py-3 font-body text-sm text-teal" aria-live="polite">
+                    Thanks. Your request has been captured locally for this demo, and the team will follow up shortly.
                   </p>
                 )}
 
-                <button type="submit" className="btn-primary w-full justify-center mt-2 disabled:cursor-not-allowed disabled:opacity-70" disabled={submitState === 'submitting'}>
-                  {submitState === 'submitting' ? 'Sending...' : 'Schedule Consultation'}
+                <button type="submit" className="btn-primary w-full justify-center mt-2">
+                  Schedule Consultation
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

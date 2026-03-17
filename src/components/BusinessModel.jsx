@@ -69,7 +69,7 @@ export default function BusinessModel() {
       {/* Ambient orb */}
       <div className="orb w-[700px] h-[700px] bg-blue/3 bottom-[-20%] left-[-15%]" style={{ animationDelay: '6s' }} />
 
-      <div className="section-container">
+      <div className="max-w-[100rem] mx-auto px-6 lg:px-12 2xl:px-16">
         {/* Header */}
         <div className="reveal text-center mb-6">
           <span className="section-tag">Why Syntax</span>
