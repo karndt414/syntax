@@ -1,3 +1,6 @@
+import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
+
 const REQUIRED_FIELDS = ['firstName', 'lastName', 'email'];
 
 function json(res, status, payload) {
@@ -32,11 +35,11 @@ export default async function handler(req, res) {
     return json(res, 405, { error: 'Method not allowed' });
   }
 
-  const { RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL } = process.env;
+  const { GMAIL_USER, GMAIL_PASSWORD, SUPABASE_URL, SUPABASE_KEY } = process.env;
 
-  if (!RESEND_API_KEY || !CONTACT_TO_EMAIL || !CONTACT_FROM_EMAIL) {
+  if (!GMAIL_USER || !GMAIL_PASSWORD || !SUPABASE_URL || !SUPABASE_KEY) {
     return json(res, 500, {
-      error: 'Missing email configuration. Set RESEND_API_KEY, CONTACT_TO_EMAIL, and CONTACT_FROM_EMAIL.',
+      error: 'Missing configuration. Set GMAIL_USER, GMAIL_PASSWORD, SUPABASE_URL, and SUPABASE_KEY.',
     });
   }
 
@@ -86,27 +89,49 @@ export default async function handler(req, res) {
     </div>
   `;
 
-  const resendResponse = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
+  // Initialize Supabase client
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Store submission in Supabase
+  try {
+    await supabase.from('contact_submissions').insert([
+      {
+        first_name: contact.firstName,
+        last_name: contact.lastName,
+        email: contact.email,
+        company: contact.company,
+        service: contact.service,
+        message: contact.message,
+        created_at: new Date().toISOString(),
+      },
+    ]);
+  } catch (dbError) {
+    console.error('Supabase insertion error:', dbError);
+    // Continue even if DB insertion fails; email is the priority
+  }
+
+  // Send email via Gmail
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: GMAIL_USER,
+      pass: GMAIL_PASSWORD,
     },
-    body: JSON.stringify({
-      from: CONTACT_FROM_EMAIL,
-      to: [CONTACT_TO_EMAIL],
-      reply_to: contact.email,
+  });
+
+  try {
+    await transporter.sendMail({
+      from: GMAIL_USER,
+      to: GMAIL_USER,
+      replyTo: contact.email,
       subject,
       text,
       html,
-    }),
-  });
-
-  if (!resendResponse.ok) {
-    const resendError = await resendResponse.text();
+    });
+  } catch (emailError) {
+    console.error('Email send error:', emailError);
     return json(res, 502, {
-      error: 'Email provider rejected the request.',
-      details: resendError,
+      error: 'Failed to send email. Please try again.',
     });
   }
 
