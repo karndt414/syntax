@@ -28,13 +28,13 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+      className={`sticky top-0 left-0 right-0 z-[100] transition-all duration-500 ${
         scrolled
           ? 'bg-[rgba(5,5,5,0.85)] backdrop-blur-xl border-b border-[rgba(255,255,255,0.04)]'
-          : 'bg-transparent'
+          : 'bg-[rgba(5,5,5,0.72)] backdrop-blur-lg border-b border-[rgba(255,255,255,0.03)]'
       }`}
     >
-      <div className="max-w-[90rem] mx-auto px-6 lg:px-12 2xl:px-16 h-20 flex items-center justify-between">
+      <div className="section-container h-20 flex items-center justify-between">
         <a href="#hero" onClick={(e) => handleClick(e, '#hero')} className="flex items-center gap-3 group">
           <img src="/logo.png" alt="Syntax" className="h-9 w-auto transition-transform duration-300 group-hover:scale-105" />
           <span className="font-display text-xl font-bold tracking-tight text-bone hidden sm:block">SYNTAX</span>
